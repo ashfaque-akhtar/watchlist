@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
+
     lateinit var binding : ActivityMainBinding
     private val viewModel by lazy {
         ViewModelProvider(this)[LoginViewModel::class.java]
