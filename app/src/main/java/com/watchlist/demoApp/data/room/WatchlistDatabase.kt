@@ -8,8 +8,8 @@ import com.indusnet.watchlist.watchlist.data.database.entity.TradeDetailEntity
 import com.indusnet.watchlist.watchlist.data.database.entity.WatchListEntity
 import com.watchlist.demoApp.constants.Constants
 
-@Database(entities = [WatchListEntity::class,TradeDetailEntity::class], version = 1)
-abstract class WatchlistDatabase:RoomDatabase() {
+@Database(entities = [WatchListEntity::class, TradeDetailEntity::class], version = 1)
+abstract class WatchlistDatabase : RoomDatabase() {
 
     abstract fun watchlistDao(): WatchListDao
 

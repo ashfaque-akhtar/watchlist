@@ -5,5 +5,5 @@ import com.watchlist.demoApp.data.DataStoreHelper
 
 class SplashViewModel() : ViewModel() {
 
-    suspend fun getLoginStatus() : Boolean = DataStoreHelper.isUserLoggedIn()
+    suspend fun getLoginStatus(): Boolean = DataStoreHelper.isUserLoggedIn()
 }

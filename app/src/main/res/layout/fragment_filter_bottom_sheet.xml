@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/cabin_regular"
             android:text="@string/filterTitle"
-            android:textColor="@color/grey"
             android:textSize="@dimen/textSize_regular"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

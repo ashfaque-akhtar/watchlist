@@ -8,15 +8,21 @@ import com.indusnet.watchlist.watchlist.data.database.operation.WatchListOperati
 import com.watchlist.demoApp.data.model.TradeDetail
 import com.watchlist.demoApp.data.model.WatchList
 
-class WatchListRepositoryImpl(private val databaseOperation : WatchListOperations):WatchlistRepository {
+class WatchListRepositoryImpl(private val databaseOperation: WatchListOperations) :
+    WatchlistRepository {
     override suspend fun fetchWatchList() {
-        val watchLists= AssetManager.getWatchListsFromAssets()
+        val watchLists = AssetManager.getWatchListsFromAssets()
         databaseOperation.updateWatchList(watchLists)
     }
 
     override suspend fun fetchWatchListData(watchListName: String) {
-        val watchListData=AssetManager.getWatchListDataFromAssets(watchListName)
-        databaseOperation.updateWatchListData(Mapper.addWatchListInEntity(watchListData,watchListName))
+        val watchListData = AssetManager.getWatchListDataFromAssets(watchListName)
+        databaseOperation.updateWatchListData(
+            Mapper.addWatchListInEntity(
+                watchListData,
+                watchListName
+            )
+        )
     }
 
     override suspend fun getWatchLists(): List<WatchList> {
@@ -29,10 +35,10 @@ class WatchListRepositoryImpl(private val databaseOperation : WatchListOperation
         isAsc: Boolean,
         sortParam: String
     ): List<TradeDetail> {
-        if(databaseOperation.checkWatchListDataCount(watchListName)==0){
+        if (databaseOperation.checkWatchListDataCount(watchListName) == 0) {
             fetchWatchListData(watchListName)
         }
-        val result = databaseOperation.getWatchListData(watchListName,isAsc,sortParam)
+        val result = databaseOperation.getWatchListData(watchListName, isAsc, sortParam)
         return Mapper.transformWatchListData(result)
     }
 

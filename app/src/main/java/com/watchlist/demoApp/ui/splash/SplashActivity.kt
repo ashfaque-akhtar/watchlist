@@ -18,26 +18,28 @@ import com.watchlist.demoApp.ui.watchlist.WatchlistActivity
 import kotlinx.coroutines.*
 
 class SplashActivity : AppCompatActivity() {
-    lateinit var binding : ActivitySplashBinding
+    lateinit var binding: ActivitySplashBinding
 
 
     private val viewModel by lazy {
         ViewModelProvider(this)[SplashViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_splash)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         supportActionBar?.hide()
         lifecycleScope.launch(Dispatchers.Main) {
             delay(3000)
 
-            var loginStatus : Boolean = CoroutineScope(Dispatchers.IO).async { viewModel.getLoginStatus() }.await()
-            if(loginStatus){
-                startActivity(Intent(this@SplashActivity,WatchlistActivity::class.java))
-            }else{
-                startActivity(Intent(this@SplashActivity,LoginActivity::class.java))
+            var loginStatus: Boolean =
+                CoroutineScope(Dispatchers.IO).async { viewModel.getLoginStatus() }.await()
+            if (loginStatus) {
+                startActivity(Intent(this@SplashActivity, WatchlistActivity::class.java))
+            } else {
+                startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             }
-          finish()
+            finish()
         }
     }
 }

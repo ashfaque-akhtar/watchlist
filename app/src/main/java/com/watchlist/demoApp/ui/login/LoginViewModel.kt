@@ -12,18 +12,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel() : ViewModel() {
-    private val dao= WatchListApplication.instance.getDatabase().watchlistDao()
+    private val dao = WatchListApplication.instance.getDatabase().watchlistDao()
     private val databaseOperation: WatchListOperations = WatchListOperationsImpl(dao)
 
     private val repository: WatchlistRepository = WatchListRepositoryImpl(databaseOperation)
-    suspend fun storeUserData(email:String){
-            repository.fetchWatchList()
+    suspend fun storeUserData(email: String) {
+        repository.fetchWatchList()
         DataStoreHelper.saveUserData(email)
         DataStoreHelper.updateUserLoginStatus(true)
     }
 
 
-    suspend fun logout(){
+    suspend fun logout() {
         repository.clearData()
         DataStoreHelper.clearData()
     }

@@ -6,31 +6,31 @@ import kotlin.random.Random
 object DataConvertor {
 
 
-    fun getAbsoluteValue(data:Int):String{
+    fun getAbsoluteValue(data: Int): String {
 
-        if(data>=1000 && data<=99999){
-            return (data/1000).toString()+"K"
+        if (data >= 1000 && data <= 99999) {
+            return (data / 1000).toString() + "K"
         }
 
-        if(data>=100000 && data<=9999999){
-            return (data/100000).toString()+"L"
+        if (data >= 100000 && data <= 9999999) {
+            return (data / 100000).toString() + "L"
         }
 
-        if(data>=10000000 && data<=999999999){
-            return (data/10000000).toString()+"C"
+        if (data >= 10000000 && data <= 999999999) {
+            return (data / 10000000).toString() + "C"
         }
 
         return data.toString()
     }
 
 
-    fun getRandomNewTradePrice(tradePrice:Double):Double{
-        if(Random.nextBoolean()){
-            return tradePrice+Random.nextInt(1,500)
+    fun getRandomNewTradePrice(tradePrice: Double): Double {
+        if (Random.nextBoolean()) {
+            return tradePrice + Random.nextInt(1, 500)
         }
 
-        if(tradePrice>10){
-            return tradePrice-Random.nextInt(1,500)
+        if (tradePrice > 10) {
+            return tradePrice - Random.nextInt(1, 500)
         }
 
         return tradePrice

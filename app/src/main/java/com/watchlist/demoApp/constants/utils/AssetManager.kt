@@ -13,35 +13,35 @@ import java.util.*
 
 object AssetManager {
 
-    suspend fun getWatchListDataFromAssets(watchlistName:String): List<TradeDetailEntity> {
-        val fileName= watchlistName.replace(" ", "").lowercase(Locale.ROOT).plus("_data.json")
+    suspend fun getWatchListDataFromAssets(watchlistName: String): List<TradeDetailEntity> {
+        val fileName = watchlistName.replace(" ", "").lowercase(Locale.ROOT).plus("_data.json")
         lateinit var jsonString: String
         try {
             jsonString = WatchListApplication.instance.assets.open(fileName)
                 .bufferedReader()
                 .use { it.readText() }
         } catch (ioException: IOException) {
-            Log.d("Debug",ioException.message?:"")
+            Log.d("Debug", ioException.message ?: "")
         }
 
 
-        val response=Gson().fromJson(jsonString,NetworkResponseWatchListData::class.java)
+        val response = Gson().fromJson(jsonString, NetworkResponseWatchListData::class.java)
         return response.Data
 
     }
 
     suspend fun getWatchListsFromAssets(): List<WatchListEntity> {
-        val fileName="watchlist_names.json"
+        val fileName = "watchlist_names.json"
         lateinit var jsonString: String
         try {
             jsonString = WatchListApplication.instance.assets.open(fileName)
                 .bufferedReader()
                 .use { it.readText() }
         } catch (ioException: IOException) {
-            Log.d("Debug",ioException.message?:"")
+            Log.d("Debug", ioException.message ?: "")
         }
 
-        val response=Gson().fromJson(jsonString,NetworkResponseWatchList::class.java)
+        val response = Gson().fromJson(jsonString, NetworkResponseWatchList::class.java)
         return response.MWName
     }
 }

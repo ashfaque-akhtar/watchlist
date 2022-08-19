@@ -22,7 +22,6 @@ object DataStoreHelper {
     val APP_THEME = intPreferencesKey("appTheme")
 
 
-
     val KEY_SORT_PARAMETER = stringPreferencesKey("keySortParameter")
 
     private val dataStore: DataStore<Preferences> = WatchListApplication.instance.getDataStore()
@@ -45,20 +44,20 @@ object DataStoreHelper {
     }
 
     //Clear Data
-    suspend fun clearData(){
+    suspend fun clearData() {
         dataStore.edit {
             it.clear()
         }
     }
 
     /* -- USER DATA -- */
-    suspend fun saveUserData(email:String) {
+    suspend fun saveUserData(email: String) {
         val data = mutableMapOf<Preferences.Key<String>, String>()
         data[KEY_USER_EMAIL] = email
         saveData(data)
     }
 
-    suspend fun saveAppTheme(theme: Int){
+    suspend fun saveAppTheme(theme: Int) {
         val data = mutableMapOf<Preferences.Key<Int>, Int>()
         data[APP_THEME] = theme
         saveData(data)
@@ -78,7 +77,7 @@ object DataStoreHelper {
     }
 
 
-    suspend fun getAppTheme() : Int{
+    suspend fun getAppTheme(): Int {
         return readData(APP_THEME) ?: -1
     }
 
@@ -134,7 +133,12 @@ object DataStoreHelper {
         return readData(KEY_SORT_PARAMETER) ?: Constants.KEY_VOLUME
     }
 
-    suspend fun updateFilterData(dayHigh: String,dayLow:String,nseBseCode:String,scriptCode:String) {
+    suspend fun updateFilterData(
+        dayHigh: String,
+        dayLow: String,
+        nseBseCode: String,
+        scriptCode: String
+    ) {
         val data = mutableMapOf<Preferences.Key<String>, String>()
         data[KEY_FILTER_DAY_HIGH] = dayHigh
         data[KEY_FILTER_DAY_LOW] = dayLow
@@ -143,13 +147,13 @@ object DataStoreHelper {
         saveData(data)
     }
 
-    suspend fun getFilterData():Map<String,String> {
+    suspend fun getFilterData(): Map<String, String> {
         val data = mutableMapOf<String, String>()
 
-        data[Constants.KEY_VOLUME]=readData(KEY_FILTER_DAY_HIGH) ?: ""
-        data[Constants.KEY_PCLOSE]=readData(KEY_FILTER_DAY_LOW) ?: ""
-        data[Constants.KEY_TRADE_PRICE]=readData(KEY_FILTER_NSE_BSE_CODE) ?: ""
-        data[Constants.KEY_SCRIPT_CODE]=readData(KEY_FILTER_SCRIPT_CODE) ?: ""
+        data[Constants.KEY_VOLUME] = readData(KEY_FILTER_DAY_HIGH) ?: ""
+        data[Constants.KEY_PCLOSE] = readData(KEY_FILTER_DAY_LOW) ?: ""
+        data[Constants.KEY_TRADE_PRICE] = readData(KEY_FILTER_NSE_BSE_CODE) ?: ""
+        data[Constants.KEY_SCRIPT_CODE] = readData(KEY_FILTER_SCRIPT_CODE) ?: ""
 
         return data
     }

@@ -30,8 +30,8 @@ private const val PARAM1 = "watchList"
 
 class WatchListFragment : Fragment() {
     private var WATCHLIST_NAME: String? = null
-    lateinit var binding : FragmentWatchListBinding
-    private  lateinit var sharedViewModel: SharedViewModel
+    lateinit var binding: FragmentWatchListBinding
+    private lateinit var sharedViewModel: SharedViewModel
     private lateinit var watchListAdapter: WatchListAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var gridLayoutManager: GridLayoutManager
@@ -51,11 +51,11 @@ class WatchListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentWatchListBinding.inflate(inflater,container,false)
+        binding = FragmentWatchListBinding.inflate(inflater, container, false)
 
-        sharedViewModel=activity?.run {
+        sharedViewModel = activity?.run {
             ViewModelProvider(this)[SharedViewModel::class.java]
-        }?: throw Exception("Invalid Activity")
+        } ?: throw Exception("Invalid Activity")
         setRecyclerView()
         addObserver()
         return binding.root
@@ -84,13 +84,14 @@ class WatchListFragment : Fragment() {
         super.onResume()
         loadWatchlistData()
     }
+
     private fun loadWatchlistData() {
         CoroutineScope(Dispatchers.IO).launch {
-            val listOrder=DataStoreHelper.getListOrder()
-            val sortParams=DataStoreHelper.getSortParameter()
-            val isAsc= listOrder == Constants.ORDER_ASCENDING
+            val listOrder = DataStoreHelper.getListOrder()
+            val sortParams = DataStoreHelper.getSortParameter()
+            val isAsc = listOrder == Constants.ORDER_ASCENDING
 
-            viewModel.loadWatchListData(WATCHLIST_NAME ?: "",isAsc,sortParams)
+            viewModel.loadWatchListData(WATCHLIST_NAME ?: "", isAsc, sortParams)
 
         }
     }
@@ -99,7 +100,7 @@ class WatchListFragment : Fragment() {
         linearLayoutManager = LinearLayoutManager(this@WatchListFragment.context)
         gridLayoutManager = GridLayoutManager(this@WatchListFragment.context, 2)
         watchListAdapter = WatchListAdapter { tradeDetail ->
-              sharedViewModel.selectItem(tradeDetail)
+            sharedViewModel.selectItem(tradeDetail)
         }
         var layoutManager: RecyclerView.LayoutManager = linearLayoutManager
         val layoutType: String? =
@@ -110,7 +111,7 @@ class WatchListFragment : Fragment() {
             this.layoutManager = layoutManager
             this.adapter = watchListAdapter
         }
-       val animator =  binding.rvWatchListData.itemAnimator!!
+        val animator = binding.rvWatchListData.itemAnimator!!
         if (animator is SimpleItemAnimator) {
             (animator as SimpleItemAnimator).supportsChangeAnimations = false
         }
@@ -118,17 +119,17 @@ class WatchListFragment : Fragment() {
     }
 
 
+    fun changeListType() = CoroutineScope(Dispatchers.Main).launch {
+        val layoutType: String? =
+            CoroutineScope(Dispatchers.IO).async { DataStoreHelper.getListType() }.await()
 
-    fun changeListType() = CoroutineScope(Dispatchers.Main).launch{
-        val layoutType : String? = CoroutineScope(Dispatchers.IO).async { DataStoreHelper.getListType()}.await()
-
-        if(layoutType == LIST_VIEW){
-           binding.rvWatchListData.layoutManager = linearLayoutManager
+        if (layoutType == LIST_VIEW) {
+            binding.rvWatchListData.layoutManager = linearLayoutManager
             CoroutineScope(Dispatchers.IO).launch {
                 DataStoreHelper.updateListOrder(LIST_VIEW)
             }
             watchListAdapter.notifyDataSetChanged()
-        }else{
+        } else {
             binding.rvWatchListData.layoutManager = gridLayoutManager
             CoroutineScope(Dispatchers.IO).launch {
                 DataStoreHelper.updateListOrder(GRID_VIEW)
@@ -140,12 +141,11 @@ class WatchListFragment : Fragment() {
     }
 
 
-
-    companion object{
-        fun newInstance(data:String) =
+    companion object {
+        fun newInstance(data: String) =
             WatchListFragment().apply {
                 arguments = Bundle().apply {
-                    putString(PARAM1,data.replace(" ",""))
+                    putString(PARAM1, data.replace(" ", ""))
                 }
             }
     }

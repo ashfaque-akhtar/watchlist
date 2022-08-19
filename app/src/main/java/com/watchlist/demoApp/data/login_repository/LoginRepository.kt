@@ -7,9 +7,13 @@ import com.watchlist.demoApp.data.model.WatchList
 interface LoginRepository {
 
     suspend fun fetchWatchList()
-    suspend fun fetchWatchListData(watchListName:String)
+    suspend fun fetchWatchListData(watchListName: String)
 
-    suspend fun getWatchLists():List<WatchList>
+    suspend fun getWatchLists(): List<WatchList>
 
-    suspend fun getWatchListData(watchListName:String,isAsc:Boolean,sortParam: String): LiveData<List<TradeDetail>>
+    suspend fun getWatchListData(
+        watchListName: String,
+        isAsc: Boolean,
+        sortParam: String
+    ): LiveData<List<TradeDetail>>
 }

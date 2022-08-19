@@ -15,17 +15,18 @@ import kotlinx.coroutines.withContext
 
 class WatchListApplication : Application() {
 
-    companion object{
-        lateinit var instance:WatchListApplication
+    companion object {
+        lateinit var instance: WatchListApplication
     }
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="applicationPreference")
-   private lateinit var database:WatchlistDatabase
+
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "applicationPreference")
+    private lateinit var database: WatchlistDatabase
     override fun onCreate() {
         super.onCreate()
         setDefaultTheme()
-        instance=this
+        instance = this
 
-     database = WatchlistDatabase.getInstance(this)
+        database = WatchlistDatabase.getInstance(this)
     }
 
     fun getDataStore(): DataStore<Preferences> {
@@ -36,12 +37,13 @@ class WatchListApplication : Application() {
         return database
     }
 
-    private fun setDefaultTheme()= CoroutineScope(Dispatchers.Main).launch{
-        val theme = withContext(Dispatchers.IO){ DataStoreHelper.getAppTheme()}
+    private fun setDefaultTheme() = CoroutineScope(Dispatchers.Main).launch {
+        val theme = withContext(Dispatchers.IO) { DataStoreHelper.getAppTheme() }
         AppCompatDelegate.setDefaultNightMode(theme)
 
     }
-    fun changeAppTheme(theme: Int)= CoroutineScope(Dispatchers.Main).launch{
+
+    fun changeAppTheme(theme: Int) = CoroutineScope(Dispatchers.Main).launch {
         AppCompatDelegate.setDefaultNightMode(theme)
         CoroutineScope(Dispatchers.IO).launch { DataStoreHelper.saveAppTheme(theme) }
     }

@@ -35,7 +35,7 @@ class WatchlistActivity : AppCompatActivity() {
     lateinit var binding: ActivityWatchlistBinding
     private val fragmentList = mutableListOf<Fragment>()
     private val uiModeManager: UiModeManager? = null
-    var isFirst = true;
+    var isFirst = true
 
     private lateinit var menu: Menu
     private lateinit var repeatJob: Job
@@ -234,7 +234,6 @@ class WatchlistActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).async { DataStoreHelper.getListType() }.await()
 
         if (gridType == Constants.GRID_VIEW) {
-
             menu.getItem(1).setIcon(resources.getDrawable(R.drawable.ic_grid))
         } else {
             menu.getItem(1).setIcon(resources.getDrawable(R.drawable.ic_list))
@@ -245,7 +244,7 @@ class WatchlistActivity : AppCompatActivity() {
         return lifecycleScope.launch {
             while (isActive) {
                 sharedViewModel.updateData()
-                delay(if(isFirst) 10 else 10000)
+                delay(if (isFirst) 10 else 3000)
                 isFirst = false
             }
         }
@@ -253,18 +252,18 @@ class WatchlistActivity : AppCompatActivity() {
 
     private fun startRefreshCounter() {
         isFirst = true
-        if(::repeatJob.isInitialized){
-            if(!repeatJob.isActive){
+        if (::repeatJob.isInitialized) {
+            if (!repeatJob.isActive) {
                 repeatJob = repeatFun()
             }
-        }else{
+        } else {
             repeatJob = repeatFun()
         }
 
     }
 
     private fun stopRefreshCounter() {
-        if(repeatJob.isActive){
+        if (repeatJob.isActive) {
             isFirst = false
             repeatJob.cancel()
         }

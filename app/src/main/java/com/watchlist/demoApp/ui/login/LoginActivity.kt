@@ -17,47 +17,48 @@ import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     private val viewModel by lazy {
         ViewModelProvider(this)[LoginViewModel::class.java]
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         supportActionBar?.hide()
         binding.btnLogin.setOnClickListener {
-          if(validateForm()){
-              lifecycleScope.launch(Dispatchers.IO){
-                  viewModel.storeUserData(binding.emailEt.text.toString().trim())
-              }
-              startActivity(Intent(this,WatchlistActivity::class.java))
-              finish()
-          }
+            if (validateForm()) {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    viewModel.storeUserData(binding.emailEt.text.toString().trim())
+                }
+                startActivity(Intent(this, WatchlistActivity::class.java))
+                finish()
+            }
         }
 
     }
 
-    fun validateForm() : Boolean{
-        var formStatus  = true
-        if(binding.emailEt.text.isNullOrEmpty()){
+    fun validateForm(): Boolean {
+        var formStatus = true
+        if (binding.emailEt.text.isNullOrEmpty()) {
             binding.email.error = resources.getString(R.string.enter_email)
             formStatus = false
-        }else{
+        } else {
             binding.email.error = null
         }
-         if(!Patterns.EMAIL_ADDRESS.matcher(binding.emailEt.text.toString()).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(binding.emailEt.text.toString()).matches()) {
             binding.email.error = resources.getString(R.string.enter_valid_email)
-             formStatus = false
-        }else{
-             binding.email.error = null
-         }
-          if(binding.passwordEt.text.isNullOrEmpty()){
+            formStatus = false
+        } else {
+            binding.email.error = null
+        }
+        if (binding.passwordEt.text.isNullOrEmpty()) {
             binding.password.error = resources.getString(R.string.enter_password)
-              formStatus = false
-        }else{
+            formStatus = false
+        } else {
             binding.password.error = null
 
         }
-        return  formStatus
+        return formStatus
     }
 }

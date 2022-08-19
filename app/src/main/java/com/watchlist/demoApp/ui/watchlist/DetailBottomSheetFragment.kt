@@ -27,24 +27,24 @@ class DetailBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance(data:TradeDetail): DetailBottomSheetFragment =
+        fun newInstance(data: TradeDetail): DetailBottomSheetFragment =
             DetailBottomSheetFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable("data",data)
+                    putSerializable("data", data)
                 }
             }
 
-        const val TAG="DetailBottomSheetFragment"
+        const val TAG = "DetailBottomSheetFragment"
     }
 
-    fun setData(data:TradeDetail){
-        tradeDetail=data
+    fun setData(data: TradeDetail) {
+        tradeDetail = data
 
-        binding.dayHigh.text=tradeDetail.ShortName.toString()
-        binding.name.text=tradeDetail.DayHigh.toString()
-        binding.dayLow.text=tradeDetail.DayLow.toString()
-        binding.nseBseCode.text=tradeDetail.NseBseCode.toString()
-        binding.scripCode.text=tradeDetail.ScripCode.toString()
+        binding.dayHigh.text = tradeDetail.ShortName.toString()
+        binding.name.text = tradeDetail.DayHigh.toString()
+        binding.dayLow.text = tradeDetail.DayLow.toString()
+        binding.nseBseCode.text = tradeDetail.NseBseCode.toString()
+        binding.scripCode.text = tradeDetail.ScripCode.toString()
     }
 
     override fun onDestroyView() {

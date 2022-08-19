@@ -33,7 +33,7 @@ class FilterBottomSheetFragment(private val onPositiveClick: () -> Unit) :
     private val sortParams = arrayListOf<String>()
     private val sortParamsFields = arrayListOf<TextView>()
 
-    private  lateinit var sharedViewModel: SharedViewModel
+    private lateinit var sharedViewModel: SharedViewModel
 
 
     override fun onCreateView(
@@ -44,18 +44,19 @@ class FilterBottomSheetFragment(private val onPositiveClick: () -> Unit) :
         _binding = FragmentFilterBottomSheetBinding.inflate(inflater, container, false)
 
         CoroutineScope(Dispatchers.Main).launch {
-            val presentFilterType = withContext(Dispatchers.IO){DataStoreHelper.getSortParameter()}
-            if(presentFilterType.equals(KEY_VOLUME))
+            val presentFilterType =
+                withContext(Dispatchers.IO) { DataStoreHelper.getSortParameter() }
+            if (presentFilterType.equals(KEY_VOLUME))
                 binding.volume.setTextColor(context?.resources!!.getColor(R.color.color_primary))
             else if (presentFilterType.equals(KEY_PCLOSE))
                 binding.pclose.setTextColor(context?.resources!!.getColor(R.color.color_primary))
-            else if(presentFilterType.equals(KEY_TRADE_PRICE))
+            else if (presentFilterType.equals(KEY_TRADE_PRICE))
                 binding.lastTradePrice.setTextColor(context?.resources!!.getColor(R.color.color_primary))
         }
 
-        sharedViewModel=activity?.run {
+        sharedViewModel = activity?.run {
             ViewModelProvider(this)[SharedViewModel::class.java]
-        }?: throw Exception("Invalid Activity")
+        } ?: throw Exception("Invalid Activity")
 
         addSortKey()
         setupOnClickEvents()
@@ -73,19 +74,17 @@ class FilterBottomSheetFragment(private val onPositiveClick: () -> Unit) :
 
 
     private fun setupOnClickEvents() {
-        for(position in sortParamsFields.indices){
+        for (position in sortParamsFields.indices) {
             sortParamsFields[position].setOnClickListener {
                 lifecycleScope.launch {
                     DataStoreHelper.updateSortParameter(sortParams[position])
-                  //  updateFilterStatus(true)
+                    //  updateFilterStatus(true)
                     onPositiveClick()
                     dismiss()
                 }
             }
         }
     }
-
-
 
 
     companion object {

@@ -22,11 +22,11 @@ class WatchListOperationsImpl(private val dao: WatchListDao) : WatchListOperatio
         sortParam: String
     ): List<TradeDetailEntity> {
 
-        if(sortParam==Constants.KEY_VOLUME){
+        if (sortParam == Constants.KEY_VOLUME) {
             return dao.getWatchListDataVolume(watchListName, isAsc)
         }
 
-        if(sortParam== Constants.KEY_PCLOSE){
+        if (sortParam == Constants.KEY_PCLOSE) {
             return dao.getWatchListDataPClose(watchListName, isAsc)
         }
 

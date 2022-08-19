@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import com.watchlist.demoApp.data.model.TradeDetail
 
 class SharedViewModel() : ViewModel() {
-    val selectedItem= MutableLiveData<TradeDetail>()
-    val layoutViewChange= MutableLiveData<Boolean>()
-    val orderChange= MutableLiveData<Boolean>()
-    val refreshData= MutableLiveData<Boolean>()
-    val filterStatus= MutableLiveData<Boolean>()
+    val selectedItem = MutableLiveData<TradeDetail>()
+    val layoutViewChange = MutableLiveData<Boolean>()
+    val orderChange = MutableLiveData<Boolean>()
+    val refreshData = MutableLiveData<Boolean>()
+    val filterStatus = MutableLiveData<Boolean>()
 
 
     fun OnItemSelected(): LiveData<TradeDetail> {
@@ -33,23 +33,23 @@ class SharedViewModel() : ViewModel() {
         return filterStatus
     }
 
-    fun selectItem(data: TradeDetail){
-        selectedItem.value=data
+    fun selectItem(data: TradeDetail) {
+        selectedItem.value = data
     }
 
-    fun changeLayout(){
-        layoutViewChange.value=true
+    fun changeLayout() {
+        layoutViewChange.value = true
     }
 
-    fun changeOrder(){
-        orderChange.value=true
+    fun changeOrder() {
+        orderChange.value = true
     }
 
-    fun updateData(){
-        refreshData.value=true
+    fun updateData() {
+        refreshData.value = true
     }
 
-    fun updateFilterStatus(status:Boolean){
-        filterStatus.value=status
+    fun updateFilterStatus(status: Boolean) {
+        filterStatus.value = status
     }
 }

@@ -7,10 +7,14 @@ import com.watchlist.demoApp.data.model.WatchList
 interface WatchlistRepository {
 
     suspend fun fetchWatchList()
-    suspend fun fetchWatchListData(watchListName:String)
+    suspend fun fetchWatchListData(watchListName: String)
 
-    suspend fun getWatchLists():List<WatchList>
-    suspend fun getWatchListData(watchListName:String,isAsc:Boolean,sortParam: String):List<TradeDetail>
+    suspend fun getWatchLists(): List<WatchList>
+    suspend fun getWatchListData(
+        watchListName: String,
+        isAsc: Boolean,
+        sortParam: String
+    ): List<TradeDetail>
 
     suspend fun clearData()
 

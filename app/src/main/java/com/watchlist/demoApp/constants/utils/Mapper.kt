@@ -16,15 +16,33 @@ object Mapper {
     fun transformWatchListData(inData: List<TradeDetailEntity>): List<TradeDetail> {
 
         return inData.map {
-            val newValue =  String.format("%.2f", DataConvertor.getRandomNewTradePrice(it.LastTradePrice)).toDouble()
-           val  isPriceUp = newValue > it.LastTradePrice
-            TradeDetail(it.Exch,it.ExchType,newValue,it.PClose,it.ShortName,DataConvertor.getAbsoluteValue(it.Volume),it.DayHigh,it.DayLow,it.NseBseCode,it.ScripCode,isPriceUp) }
+            val newValue =
+                String.format("%.2f", DataConvertor.getRandomNewTradePrice(it.LastTradePrice))
+                    .toDouble()
+            val isPriceUp = newValue > it.LastTradePrice
+            TradeDetail(
+                it.Exch,
+                it.ExchType,
+                newValue,
+                it.PClose,
+                it.ShortName,
+                DataConvertor.getAbsoluteValue(it.Volume),
+                it.DayHigh,
+                it.DayLow,
+                it.NseBseCode,
+                it.ScripCode,
+                isPriceUp
+            )
+        }
     }
 
-    fun addWatchListInEntity(inData: List<TradeDetailEntity>,watchlistName:String): List<TradeDetailEntity> {
-       for(item in inData){
-           item.watchlist=watchlistName.replace(" ","")
-       }
+    fun addWatchListInEntity(
+        inData: List<TradeDetailEntity>,
+        watchlistName: String
+    ): List<TradeDetailEntity> {
+        for (item in inData) {
+            item.watchlist = watchlistName.replace(" ", "")
+        }
         return inData
     }
 }

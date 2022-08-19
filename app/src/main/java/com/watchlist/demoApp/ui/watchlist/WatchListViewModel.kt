@@ -22,7 +22,7 @@ class WatchListViewModel() : ViewModel() {
     private val repository: WatchlistRepository = WatchListRepositoryImpl(databaseOperation)
 
     private val _tradeDetailsData = MutableLiveData<List<TradeDetail>>()
-     val tradeDetailsData : LiveData<List<TradeDetail>> get() = _tradeDetailsData
+    val tradeDetailsData: LiveData<List<TradeDetail>> get() = _tradeDetailsData
 
     suspend fun loadWatchListData(
         selectedWatchList: String,
@@ -31,8 +31,8 @@ class WatchListViewModel() : ViewModel() {
     ) {
         var watchList = repository.getWatchListData(selectedWatchList, isAsc, sortPrams)
 
-        if(sortPrams.equals(KEY_TRADE_PRICE)){
-            if(isAsc)
+        if (sortPrams.equals(KEY_TRADE_PRICE)) {
+            if (isAsc)
                 watchList = watchList.sortedBy { it.LastTradePrice }
             else
                 watchList = watchList.sortedByDescending { it.LastTradePrice }
