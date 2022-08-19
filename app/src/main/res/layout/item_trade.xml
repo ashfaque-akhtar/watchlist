@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="tradeDetail"
+            type="com.watchlist.demoApp.data.model.TradeDetail" />
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="1.5dp"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="0.5dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_8dp">
+
+
+            <ImageView
+                android:id="@+id/ivRiseIndicator"
+                android:layout_width="@dimen/dimension_18"
+                android:layout_height="@dimen/dimension_18"
+                android:layout_marginTop="9dp"
+                android:visibility="gone"
+                android:src="@{tradeDetail.priceUp ? @drawable/up_arrow : @drawable/down_arrow}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/volume" />
+
+            <TextView
+                android:id="@+id/lastTradePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Last Trade Price"
+                android:textColor="@{tradeDetail.priceUp ? @color/green: @color/red}"
+                android:text="@{String.valueOf(tradeDetail.lastTradePrice)}"
+                android:textSize="@dimen/textSize_regular"
+                android:fontFamily="@font/cabin_medium"/>
+
+            <TextView
+                android:id="@+id/volume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/cabin_regular"
+                android:gravity="end"
+                android:text="@{String.valueOf(tradeDetail.volume)}"
+                android:textSize="@dimen/textSize_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/lastTradePrice"
+                tools:text="Volume" />
+
+            <TextView
+                android:id="@+id/exchangeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:gravity="start"
+                app:layout_constraintStart_toEndOf="@+id/exchange"
+                app:layout_constraintTop_toTopOf="@+id/exchange"
+                tools:text="ExchangeType"
+                android:text="@{tradeDetail.exchType}"
+                android:textSize="@dimen/textSize_regular"
+                android:fontFamily="@font/cabin_regular"/>
+
+            <TextView
+                android:id="@+id/exchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shortName"
+                tools:text="Exchange"
+                android:text="@{tradeDetail.exch}"
+                android:textSize="@dimen/textSize_regular"
+                android:fontFamily="@font/cabin_regular"/>
+
+            <TextView
+                android:id="@+id/shortName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/shortName"
+                android:text="@{tradeDetail.shortName}"
+                android:textSize="@dimen/textSize_regular"
+                android:fontFamily="@font/cabin_regular"/>
+
+            <TextView
+                android:id="@+id/pClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="start"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/exchange"
+                tools:text="PClose"
+                android:text="@{String.valueOf(tradeDetail.PClose)}"
+                android:textSize="@dimen/textSize_regular"
+                android:fontFamily="@font/cabin_regular"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</layout>

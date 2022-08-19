@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="increse"
+        android:id="@+id/increse"
+        android:iconTint="@color/white"
+        app:showAsAction="always"
+
+        android:icon="@drawable/increasing"/>
+
+    <!-- action button for refresh -->
+    <item android:title="list"
+        android:id="@+id/list"
+        android:iconTint="@color/white"
+
+        app:showAsAction="always"
+        android:icon="@drawable/list"/>
+
+    <!-- action button for copy -->
+    <item android:title="filter"
+        android:id="@+id/filter"
+        android:iconTint="@color/white"
+        app:showAsAction="always"
+        android:icon="@drawable/filter"/>
+    <!-- action button for copy -->
+    <item android:title="Dark"
+        android:id="@+id/dark_theme"
+        app:showAsAction="ifRoom"
+        android:contentDescription="Dark theme"/>
+
+    <item android:title="Light"
+        android:id="@+id/light_theme"
+        app:showAsAction="ifRoom"
+        android:contentDescription="light theme"/>
+
+    <item android:title="Auto (depending on system)"
+        android:id="@+id/auto_theme"
+        app:showAsAction="ifRoom"
+        android:contentDescription="auto theme"/>
+
+    <item android:title="logout"
+        android:id="@+id/logout"
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/logout"/>
+</menu>
