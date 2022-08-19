@@ -7,6 +7,10 @@ import androidx.sqlite.db.SupportSQLiteQuery
 import com.indusnet.watchlist.watchlist.data.database.entity.TradeDetailEntity
 import com.indusnet.watchlist.watchlist.data.database.entity.WatchListEntity
 
+/**
+ * Database operations
+ */
+
 @Dao
 interface WatchListDao {
 

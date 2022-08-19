@@ -11,6 +11,11 @@ import com.watchlist.demoApp.application.WatchListApplication
 import java.io.IOException
 import java.util.*
 
+
+/**
+ * This class fetchs the data from local json file
+ * stored in the app
+ */
 object AssetManager {
 
     suspend fun getWatchListDataFromAssets(watchlistName: String): List<TradeDetailEntity> {

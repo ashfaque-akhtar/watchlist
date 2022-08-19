@@ -24,6 +24,9 @@ class WatchListViewModel() : ViewModel() {
     private val _tradeDetailsData = MutableLiveData<List<TradeDetail>>()
     val tradeDetailsData: LiveData<List<TradeDetail>> get() = _tradeDetailsData
 
+    /**
+     * Load watchlist data from db
+     */
     suspend fun loadWatchListData(
         selectedWatchList: String,
         isAsc: Boolean,

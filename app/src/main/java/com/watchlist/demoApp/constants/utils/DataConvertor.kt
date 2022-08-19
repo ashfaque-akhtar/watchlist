@@ -3,6 +3,10 @@ package com.indusnet.watchlist.common.util
 import android.util.Log
 import kotlin.random.Random
 
+
+/**
+ * Class helps in data manipulation
+ */
 object DataConvertor {
 
 

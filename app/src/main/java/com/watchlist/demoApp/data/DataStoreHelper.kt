@@ -6,7 +6,9 @@ import com.watchlist.demoApp.application.WatchListApplication
 import com.watchlist.demoApp.constants.Constants
 import kotlinx.coroutines.flow.first
 
-
+/**
+ * local cache files stored here
+ */
 object DataStoreHelper {
 
     val KEY_USER_LOGIN_STATUS = booleanPreferencesKey("keyUserLoginStatus")

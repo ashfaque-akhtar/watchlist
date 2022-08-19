@@ -104,9 +104,9 @@ class WatchlistActivity : AppCompatActivity() {
         return when (id) {
             R.id.increse -> {
                 CoroutineScope(Dispatchers.Main).launch {
-                    ////
+
                     stopRefreshCounter()
-                    ////
+
                     val listOrder =
                         CoroutineScope(Dispatchers.IO).async { DataStoreHelper.getListOrder() }
                             .await()
@@ -119,16 +119,14 @@ class WatchlistActivity : AppCompatActivity() {
                     } else {
                         menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_trend_up))
                     }
-                    ////
-                    //startRefreshCounter()
-                    ////
+
                     CoroutineScope(Dispatchers.IO).launch {
                         DataStoreHelper.updateListOrder(
                             newListOrder
                         )
                     }
 
-                    sharedViewModel.changeOrder()
+                    //sharedViewModel.changeOrder()
                     startRefreshCounter()
 
                 }
@@ -217,6 +215,9 @@ class WatchlistActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Initial Page setting for
+     */
     private fun setupSettings() = CoroutineScope(Dispatchers.Main).launch {
 
 
@@ -250,6 +251,9 @@ class WatchlistActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Start refreshing job
+     */
     private fun startRefreshCounter() {
         isFirst = true
         if (::repeatJob.isInitialized) {
@@ -262,6 +266,9 @@ class WatchlistActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Stop refreshing job
+     */
     private fun stopRefreshCounter() {
         if (repeatJob.isActive) {
             isFirst = false

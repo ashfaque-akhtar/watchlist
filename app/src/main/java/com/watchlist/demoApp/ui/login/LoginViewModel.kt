@@ -16,6 +16,7 @@ class LoginViewModel() : ViewModel() {
     private val databaseOperation: WatchListOperations = WatchListOperationsImpl(dao)
 
     private val repository: WatchlistRepository = WatchListRepositoryImpl(databaseOperation)
+
     suspend fun storeUserData(email: String) {
         repository.fetchWatchList()
         DataStoreHelper.saveUserData(email)
