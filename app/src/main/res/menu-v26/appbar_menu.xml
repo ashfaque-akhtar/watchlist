@@ -5,8 +5,7 @@
         android:id="@+id/increse"
         android:iconTint="@color/white"
         app:showAsAction="always"
-
-        android:icon="@drawable/increasing"/>
+        android:icon="@drawable/ic_trend_up"/>
 
     <!-- action button for refresh -->
     <item android:title="list"
@@ -14,14 +13,14 @@
         android:iconTint="@color/white"
 
         app:showAsAction="always"
-        android:icon="@drawable/list"/>
+        android:icon="@drawable/ic_list"/>
 
     <!-- action button for copy -->
     <item android:title="filter"
         android:id="@+id/filter"
         android:iconTint="@color/white"
         app:showAsAction="always"
-        android:icon="@drawable/filter"/>
+        android:icon="@drawable/ic_filter"/>
     <!-- action button for copy -->
     <item android:title="Dark"
         android:id="@+id/dark_theme"

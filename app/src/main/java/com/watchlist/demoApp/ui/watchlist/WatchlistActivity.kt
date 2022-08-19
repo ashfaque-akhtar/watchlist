@@ -35,6 +35,7 @@ class WatchlistActivity : AppCompatActivity() {
     lateinit var binding: ActivityWatchlistBinding
     private val fragmentList = mutableListOf<Fragment>()
     private val uiModeManager: UiModeManager? = null
+    var isFirst = true;
 
     private lateinit var menu: Menu
     private lateinit var repeatJob: Job
@@ -63,7 +64,7 @@ class WatchlistActivity : AppCompatActivity() {
 
     private fun getWatchLists() {
         lifecycleScope.launch {
-            setupWatchListTabs(viewModel.getWatchLists())
+            setupWatchListTabs(viewModel.getWatchLists().reversed())
         }
     }
 
@@ -114,12 +115,12 @@ class WatchlistActivity : AppCompatActivity() {
                     if (listOrder == Constants.ORDER_ASCENDING) {
                         newListOrder = Constants.ORDER_DESCENDING
 
-                        menu.getItem(0).setIcon(resources.getDrawable(R.drawable.decreasing))
+                        menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_trend_down))
                     } else {
-                        menu.getItem(0).setIcon(resources.getDrawable(R.drawable.increasing))
+                        menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_trend_up))
                     }
                     ////
-                    startRefreshCounter()
+                    //startRefreshCounter()
                     ////
                     CoroutineScope(Dispatchers.IO).launch {
                         DataStoreHelper.updateListOrder(
@@ -128,13 +129,14 @@ class WatchlistActivity : AppCompatActivity() {
                     }
 
                     sharedViewModel.changeOrder()
+                    startRefreshCounter()
 
                 }
 
-                if (item.icon.equals(resources.getDrawable(R.drawable.increasing))) {
-                    menu.getItem(0).setIcon(resources.getDrawable(R.drawable.increasing))
+                if (item.icon.equals(resources.getDrawable(R.drawable.ic_trend_up))) {
+                    menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_trend_up))
                 } else {
-                    menu.getItem(0).setIcon(resources.getDrawable(R.drawable.decreasing))
+                    menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_trend_down))
                 }
                 true
             }
@@ -152,9 +154,9 @@ class WatchlistActivity : AppCompatActivity() {
                         DataStoreHelper.updateListType(type)
                         if (type == Constants.GRID_VIEW) {
 
-                            menu.getItem(1).setIcon(resources.getDrawable(R.drawable.grid))
+                            menu.getItem(1).setIcon(resources.getDrawable(R.drawable.ic_grid))
                         } else {
-                            menu.getItem(1).setIcon(resources.getDrawable(R.drawable.list))
+                            menu.getItem(1).setIcon(resources.getDrawable(R.drawable.ic_list))
                         }
                         sharedViewModel.changeLayout()
                     }
@@ -222,9 +224,9 @@ class WatchlistActivity : AppCompatActivity() {
             CoroutineScope(Dispatchers.IO).async { DataStoreHelper.getListOrder() }.await()
 
         if (listOrder == Constants.ORDER_ASCENDING) {
-            menu.getItem(0).setIcon(resources.getDrawable(R.drawable.decreasing))
+            menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_trend_up))
         } else {
-            menu.getItem(0).setIcon(resources.getDrawable(R.drawable.increasing))
+            menu.getItem(0).setIcon(resources.getDrawable(R.drawable.ic_trend_down))
         }
 
 
@@ -233,9 +235,9 @@ class WatchlistActivity : AppCompatActivity() {
 
         if (gridType == Constants.GRID_VIEW) {
 
-            menu.getItem(1).setIcon(resources.getDrawable(R.drawable.grid))
+            menu.getItem(1).setIcon(resources.getDrawable(R.drawable.ic_grid))
         } else {
-            menu.getItem(1).setIcon(resources.getDrawable(R.drawable.list))
+            menu.getItem(1).setIcon(resources.getDrawable(R.drawable.ic_list))
         }
     }
 
@@ -243,12 +245,14 @@ class WatchlistActivity : AppCompatActivity() {
         return lifecycleScope.launch {
             while (isActive) {
                 sharedViewModel.updateData()
-                delay(3000)
+                delay(if(isFirst) 10 else 10000)
+                isFirst = false
             }
         }
     }
 
     private fun startRefreshCounter() {
+        isFirst = true
         if(::repeatJob.isInitialized){
             if(!repeatJob.isActive){
                 repeatJob = repeatFun()
@@ -261,6 +265,7 @@ class WatchlistActivity : AppCompatActivity() {
 
     private fun stopRefreshCounter() {
         if(repeatJob.isActive){
+            isFirst = false
             repeatJob.cancel()
         }
     }
